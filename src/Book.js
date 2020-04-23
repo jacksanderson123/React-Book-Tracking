@@ -5,16 +5,8 @@ class Book extends  Component {
         book: propTypes.object.isRequired
     };
 
-    onClick = (e) => {
-        e.preventDefault();
-        // determin the selected value
-        // return the updated id to the books API
-        console.log(e.target.id)
-    };
-
     render() {
-        const { book } = this.props;
-        console.log(book);
+        const { book, moveBookShelf } = this.props;
         return (
             <div className="book" id={book.id}>
                 <div className="book-top">

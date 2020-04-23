@@ -22,10 +22,9 @@ class BookShelf extends  Component {
                 <h2 className="bookshelf-title">{shelfTitle} ({currentBooks.length})</h2>
                 <div className="bookshelf-books">
                     <ol className="books-grid">
-                        {console.log(currentBooks)}
                         { currentBooks.length > 0 && currentBooks.map((book) => (
-                        <li>
-                            <Book book={book} />
+                        <li key={book.id}>
+                            <Book  book={book} />
                         </li>
                         ))}
                     </ol>

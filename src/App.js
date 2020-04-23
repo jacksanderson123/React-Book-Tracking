@@ -27,7 +27,7 @@ class BooksApp extends React.Component {
      * moves book to new shelf
      * @param book
      */
-    moveBook = (selectedBook, shelf) => {
+    moveBookShelf = (selectedBook, shelf) => {
         BooksAPI.update(selectedBook,shelf)
             .then(response => {
                 selectedBook.shelf = shelf;
@@ -41,31 +41,25 @@ class BooksApp extends React.Component {
     };
 
     render() {
-        const { books } = this.state;
+        const { books,  } = this.state;
 
         return (
             <div className="app">
 
-                <Route exact path='/search' render={({ history }) => (
+                <Route exact path='/search' render={() => (
                     <SearchBooks
-                        books={this.state.books}
-                        onSelectShelf = {(bookId) => {
-                            this.moveBook(bookId);
-                            history.push('/')
-                        }}
+                        books={books}
+                        onSelectShelf = {this.moveBookShelf}
                     />
                 )} />
 
-                <Route exact path='/' render={({ history }) => (
+                <Route exact path='/' render={() => (
                     <ListBooks
-                        books={this.state.books}
-                        onSelectShelf = {(bookId) => {
-                            this.moveBook(bookId);
-                            history.push('/')
-                        }}
+                        books={books}
+                        onSelectShelf = {this.moveBookShelf}
                     />
 
-                    )} />
+                )} />
             </div>
         )
     }
