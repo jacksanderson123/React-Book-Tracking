@@ -14,6 +14,7 @@ class SearchBooks extends Component {
     state = {
         query: '',
         searchResultBooks: [],
+        searchError: false
     };
 
     searchQuery = (query) => {
@@ -36,9 +37,11 @@ class SearchBooks extends Component {
 
                     });
                     searchBooks.length > 0
-                        ? this.setState({searchResultBooks: searchBooks })
-                        : this.setState({searchResultBooks: []})
-                })
+                        ? this.setState({searchResultBooks: searchBooks, searchError: false})
+                        : this.setState({searchResultBooks: [], searchError: false})
+                }).catch(error => {
+                    this.setState({searchResultBooks: [], searchError: true})
+            })
         }
     };
 
