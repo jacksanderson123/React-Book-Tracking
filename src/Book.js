@@ -24,7 +24,6 @@ class Book extends  Component {
             }
 
         }
-        console.log(book.imageLinks)
 
         return (
             <div className="book" id={book.id}>

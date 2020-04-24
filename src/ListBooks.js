@@ -14,7 +14,6 @@ class ListBooks extends  Component {
     render() {
         const { books } = this.props;
         const { moveBookShelf } = this.props;
-        console.log(books)
         return (
             <div className="list-books">
                 <div className="list-books-title">
