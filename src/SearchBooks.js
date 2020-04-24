@@ -13,32 +13,40 @@ class SearchBooks extends Component {
 
     state = {
         query: '',
-        searchResultBooks: []
+        searchResultBooks: [],
     };
 
     searchQuery = (query) => {
         this.setState({ query: query });
 
-        if(query) {
+        if (!query){
+            this.setState({searchResultBooks: []})
+        }else{
             BooksAPI.search(query.trim(), 20)
-                .then(books => {
-                    books.length > 0
-                        ? this.setState({searchResultBooks: books })
+                .then(searchBooks => {
+                    // Loop the searched books
+                    searchBooks.forEach(searchBook => {
+                        // loop all books against search set shelf
+                        searchBook.shelf = 'none';
+                        this.props.books.forEach(propBook => {
+                            if(searchBook.id === propBook.id){
+                                (searchBook.shelf = propBook.shelf )
+                            }
+                        });
+
+                    });
+                    searchBooks.length > 0
+                        ? this.setState({searchResultBooks: searchBooks })
                         : this.setState({searchResultBooks: []})
                 })
-        }else{
-            this.setState({searchResultBooks: []})
         }
-
     };
 
 
 
     render() {
-        const { query,searchResultBooks } = this.state;
-        const { moveBookShelf } = this.props;
-
-
+        const { query,searchResultBooks} = this.state;
+        const { moveBookShelf, books } = this.props;
         return (
             <div className="search-books">
                 <div className="search-books-bar">
@@ -49,7 +57,7 @@ class SearchBooks extends Component {
                             type='text'
                             placeholder="Search by title or author"
                             value={query}
-                            onChange={(event) => this.searchQuery(event.target.value)}
+                            onChange={(event) => this.searchQuery(event.target.value, books)}
                         />
                     </div>
                 </div>

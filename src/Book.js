@@ -16,8 +16,19 @@ class Book extends  Component {
     render() {
         const { book } = this.props;
 
+        // This will handel books without a thumbnail
+        if (!book.imageLinks) {
+            book.imageLinks = {
+                'thumbnail': '#',
+                'smallThumbnail': '#'
+            }
+
+        }
+        console.log(book.imageLinks)
+
         return (
             <div className="book" id={book.id}>
+                {/*{book.imageLinks}*/}
                 <div className="book-top">
                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}/>
                     <div className="book-shelf-changer">
@@ -32,7 +43,7 @@ class Book extends  Component {
                 </div>
                 <div className="book-title">{book.title}</div>
                 <div className="book-authors">
-                { book.authors.length > 0 && book.authors.map((author, index) => (
+                { book.authors && book.authors.map((author, index) => (
                     <p key={index}>{author}</p>
                 ))}
                 </div>
