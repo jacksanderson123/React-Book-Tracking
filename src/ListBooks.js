@@ -1,26 +1,20 @@
 import React, {Component} from 'react'
 import { Link } from "react-router-dom";
 import BookShelf from './BookShelf'
-import * as BooksAPI from "./BooksAPI";
 import propTypes from 'prop-types'
 
 class ListBooks extends  Component {
 
     static propTypes = {
-        books: propTypes.array
+        books: propTypes.array,
+        moveBookShelf: propTypes.func.isRequired
     };
 
-    componentDidMount(){
-        BooksAPI.getAll()
-            .then((books) => {
-                this.setState(() => ({
-                    books
-                }))
-            })
-    }
 
     render() {
         const { books } = this.props;
+        const { moveBookShelf } = this.props;
+        console.log(books)
         return (
             <div className="list-books">
                 <div className="list-books-title">
@@ -32,17 +26,21 @@ class ListBooks extends  Component {
                         shelfTitle='Currently Reading'
                         shelfName='currentlyReading'
                         books = {books}
+                        moveBookShelf = {moveBookShelf}
                     />
                     <BookShelf
                         shelfTitle='Want to Read'
                         shelfName='wantToRead'
                         books = {books}
+                        moveBookShelf={moveBookShelf}
 
                     />
+
                     <BookShelf
                         shelfTitle='Read'
-                        shelfName='Read'
+                        shelfName='read'
                         books = {books}
+                        moveBookShelf={moveBookShelf}
                     />
                 </div>
                 )}

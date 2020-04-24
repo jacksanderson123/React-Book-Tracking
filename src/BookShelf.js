@@ -5,17 +5,17 @@ class BookShelf extends  Component {
 
     static propTypes = {
         shelfName: propTypes.string.isRequired,
-        books: propTypes.array.isRequired
+        books: propTypes.array.isRequired,
+        moveBookShelf: propTypes.func.isRequired
     };
 
 
     render() {
         const { shelfTitle, shelfName, books } = this.props;
+        const  {moveBookShelf} = this.props
 
         // Get's books for current shelf
-        var currentBooks = books.filter(function(book) {
-            return book.shelf.toLowerCase() === shelfName.toLowerCase();
-        });
+        const currentBooks = books.filter(book => book.shelf === shelfName);
 
         return (
             <div className="bookshelf">
@@ -24,7 +24,7 @@ class BookShelf extends  Component {
                     <ol className="books-grid">
                         { currentBooks.length > 0 && currentBooks.map((book) => (
                         <li key={book.id}>
-                            <Book  book={book} />
+                            <Book  book={book} moveBookShelf={moveBookShelf} />
                         </li>
                         ))}
                     </ol>
